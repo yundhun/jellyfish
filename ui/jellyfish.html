@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Jellyfish</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">  
+  <script src="lib/jquery-1.10.2.js"></script>
+  <script src="lib/jquery-ui.js"></script>
+  <script src="lib/js.cookie.js"></script>
+  <script src="lib/jellyfish.js"></script>
+  <style>
+    #body {
+    font-family: "Trebuchet MS", "Helvetica", "Arial",  "Verdana", "sans-serif";
+    font-size: 90%;
+    }
+  #toDoGround { float: left; width: 65%; min-height: 100em; }
+  .toDoGround.custom-state-active { background: #eee; }
+  .toDoGround li { float: left; width: 96px; padding: 0.4em; margin: 0 0.4em 0.4em 0; text-align: center; }
+  .toDoGround li h5 { margin: 0 0 0.4em; cursor: move; }
+  .toDoGround li a { float: right; }
+  .toDoGround li a.ui-icon-zoomin { float: left; }
+  .toDoGround li img { width: 100%; cursor: move; }
+ 
+  #completeGround { float: right; width: 32%; min-height: 50em; padding: 1%; }
+  #completeGround h4 { line-height: 16px; margin: 0 0 0.4em; }
+  #completeGround h4 .ui-icon { float: left; }
+  #completeGround .toDoGround h5 { display: none; }
+  </style>
+</head>
+
+<body>
+
+<!--입력상자 태그 시작-->
+<div id="dialog" title="입력 상자">
+  받는 사람 <input class="receiver" size="10"></input>
+  <br><br>
+  <textarea class="modContents" rows="5", cols="24">No Contents</textarea>
+  <br>
+  <span class="modComplete" style="font-weight: bold;color:blue">완료</span>
+  <span class="removeToDo" style="font-weight: bold;color:blue; float:right">삭제</span>
+  <span class="uuid" hidden="hidden"></span>
+</div>
+<!--입력상자 태그 끝-->
+
+<!--상단 메뉴 태그 시작-->
+Jellyfish
+<span id="userName" style="font-weight: bold">No Name</span>&nbsp;&nbsp;&nbsp;
+<span id="makeToDo" style="font-weight: bold;color:blue">할일 추가하기</span>
+<span id="logout"   style="font-weight:bold; color:blue; float:right">로그아웃</span>
+<hr>
+<!--상단 메뉴 태그 끝-->
+
+<!--Main Contents 태그 시작-->
+<div class="ui-widget ui-helper-clearfix"> 
+
+  <ul id="toDoGround" class="toDoGround ui-helper-reset ui-helper-clearfix">
+    <li id='toDo' class="ui-widget-content ui-corner-tr" hidden="hidden">
+      <h5 class="ui-widget-header">가나다</h5>      
+      <span class="jellyOrFish" hidden="hidden">(Jelly)</span>
+      <img class="todoImage" src='image/jelly.png' style="width:50px;height:50px;"><br>
+      <span class="contents">저는 일을 해야 합니다. 왜냐면 돈을 벌어야 해서요.</span>
+      <br>
+      <span class="modClick" style="font-weight: bold;color:blue">수정하기</span>
+      <span class="uuid" hidden="hidden">uuidDefaultValue</span>
+      <span class="statusReceiver" hidden="hidden"></span>
+      <span class="statusSender" hidden="hidden"></span>
+    </li>
+  </ul>
+   
+  <div id="completeGround" class="ui-widget-content ui-state-default">
+    <h4 class="ui-widget-header">다 했어요!</h4>
+  </div>
+
+</div>
+
+  <!--ul hidden="hidden">
+    <li id='toDo' class="ui-widget-content ui-corner-tr">
+      <h5 class="ui-widget-header">가나다</h5>      
+      <span class="jellyOrFish" hidden="hidden">(Jelly)</span>
+      <img class="todoImage" src='image/jelly.png' style="width:50px;height:50px;"><br>
+      <span class="contents">저는 일을 해야 합니다. 왜냐면 돈을 벌어야 해서요.</span>
+      <br>
+      <span class="modClick" style="font-weight: bold;color:blue">수정하기</span>
+      <span class="uuid" hidden="hidden">asdasdasdasd</span>
+      <span class="statusReceiver" hidden="hidden"></span>
+      <span class="statusSender" hidden="hidden"></span>
+    </li>
+  <ul-->
+<!--Main Contents 태그 끝-->
+ 
+ 
+</body>
+</html>

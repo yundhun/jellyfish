@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Jellyfish</title>
+  <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="lib/js.cookie.js"></script>
+  <script>
+  $(function() {
+    $("#id_000").click(function(){
+      var userName = $("#id_001").val();
+      if(userName.length == 0){
+        return;
+      }
+      console.log(userName);
+      Cookies.set("jellyfishId", userName, { path:"/"});
+      window.location.href = "jellyfish.html";
+    });
+    $('#id_001').keypress(function (e) {
+       var key = e.which;
+       if(key == 13)  // the enter key code
+        {
+          $("#id_000").click();
+        }
+    }); 
+  });
+  </script>
+</head>
+
+<body>
+  <div style="width:100%; height:100%; text-align:center; margin:120px 0px 0px 0px;">    
+    <input  id="id_001" type="text" style="font-size : 20px;" placeholder="이름">
+    <button id="id_000" style="font-size : 20px;" >Jellfish</button>
+    <br>
+    <img src="/image/jellyfish.png">
+  </div> 
+</body>
+</html>
