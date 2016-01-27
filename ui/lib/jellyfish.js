@@ -42,7 +42,7 @@
  
     // '다했어요' 디비전에 설정.
     $completeGround.droppable({
-      accept: "#toDoGround > li",
+      //accept: "#toDoGround > li",
       drop: function( event, ui ) {
         completeGroundFunc( ui.draggable );
       }
@@ -50,15 +50,13 @@
  
     // let the toDoGround be droppable as well, accepting items from the completeGround
     $toDoGround.droppable({
-      accept: "#toDoGround > li",
+      //accept: "#toDoGround > li",
       drop: function( event, ui ) {
         toDoGroundFunc( ui.draggable );
       }
     });
- 
-    //
+
     function completeGroundFunc( $item ) {
-      //$item.css("background-color","Salmon");
       var uuid = $item.children('.uuid').text(); //uuid
       var jellyOrfish = $item.children('.jellyOrFish').text();
       if(jellyOrfish=="(Jelly)"){
@@ -74,10 +72,8 @@
         
       }
     }
- 
-    //
-    function toDoGroundFunc( $item ) {
-      //$item.css("background-color","white");
+
+    function toDoGroundFunc( $item ) {      
       var uuid = $item.children('.uuid').text(); //uuid
       var jellyOrfish = $item.children('.jellyOrFish').text(); 
       var status = "";
@@ -93,21 +89,6 @@
         }
       }
     }
- 
-    // resolve the icons behavior with event delegation
-    $( "ul.toDoGround > li" ).click(function( event ) {
-      var $item = $( this ),
-        $target = $( event.target );
- 
-      if ( $target.is( "a.ui-icon-trash" ) ) {
-        deleteImage( $item );
-      } 
-      else if ( $target.is( "a.ui-icon-refresh" ) ) {
-        //recycleImage( $item );
-      }
-  
-      return false;
-    });
 
     //할일들을 화면에 뿌린다.
     function refreshToDos(){
@@ -175,7 +156,8 @@
               }
               });
               if(tempFlg){
-                $("#toDoGround").children(".ui-widget-content").eq(i).remove();
+                //$("#toDoGround").children(".ui-widget-content").eq(i).remove();
+                $("#toDoGround").children(".ui-widget-content").eq(i).hide("slow");                
               }
              }
                           
@@ -236,21 +218,19 @@
                 if(toDo.statusReceiver=="O" || toDo.statusSender=="O"){
                    $cloneToDo.css("background-color","Salmon");
                 }
-                $cloneToDo.appendTo( $("#toDoGround") );
-
-                /*if(toDos.length != i){
-                  $clone = $("#toDo").clone();
-                  $clone.removeAttr('id');
-                  $clone.appendTo( $("#toDoGround") );
-                }
-                $("#toDo").css("background-color","white");
-
-                i++;
-                */
+                //$cloneToDo.appendTo( $("#toDoGround") );
+                $cloneToDo.appendTo( $("#completeGroundUl") );
               }
             });
 
-            $( "li", $toDoGround ).draggable({containment: "document"});
+            //$( "li", $toDoGround ).draggable({containment: "document"});
+            $( "li").draggable({containment: "document"});
+
+            $('.li').each(function() {
+                var top = $(this).position().top + 'px';
+                var left = $(this).position().left + 'px';
+                $(this).css({top: top, left: left});
+            }).css({position: 'absolute'});
             
             $(".modClick").click(function() {
              var srcUuid = $(this).parent().children('.uuid').text();

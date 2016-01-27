@@ -1,3 +1,4 @@
+# -*- coding: utf8 -*-
 from twisted.web import server, resource, static
 from twisted.internet import reactor, endpoints
 import json
@@ -21,13 +22,14 @@ class getToDos(resource.Resource):
         yesterdayDatetime = datetime.datetime.now() - datetime.timedelta(days=1)
         yesterdayStr = yesterdayDatetime.strftime('%Y%m%d000000')
 
-        #sql_str = "select uuid, sender, receiver, contents, statusSender, statusReceiver from toDo where removeFlag != 'Y' and ( sender='%s' or receiver='%s' ) " %(userName, userName)
+        keyword_1 = '%모두%'.decode('utf-8')
+
         sql_str = """select uuid, sender, receiver, contents, statusSender, statusReceiver from
 (
-select * from toDo where removeFlag != 'Y' and ( sender='%s' or receiver='%s' ) and statusSender||statusReceiver!='OO'
+select * from toDo where removeFlag != 'Y' and ( sender='%s' or receiver='%s' or receiver='%s' ) and statusSender||statusReceiver!='OO'
 union all
-select * from toDo where ( sender='%s' or receiver='%s' ) and statusSender||statusReceiver='OO' and updateDateTime > '%s'
-)""" %(userName, userName, userName, userName, yesterdayStr)
+select * from toDo where ( sender='%s' or receiver='%s' or receiver='%s"' ) and statusSender||statusReceiver='OO' and updateDateTime > '%s'
+)""" %(userName, userName, keyword_1, userName, userName, keyword_1, yesterdayStr)
         
         #print sql_str
         try:
