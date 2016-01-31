@@ -156,7 +156,6 @@
               }
               });
               if(tempFlg){
-                //$("#toDoGround").children(".ui-widget-content").eq(i).remove();
                 $("#toDoGround").children(".ui-widget-content").eq(i).hide("slow");                
               }
              }
@@ -164,12 +163,34 @@
              i++;
             });
 
+           i = 0;
+           $.each($("#completeGroundUl").children(".ui-widget-content"), function(){
+           var uuidTmp = $("#completeGroundUl").children(".ui-widget-content").children(".uuid").eq(i).text();
+           if(uuidTmp=="uuidDefaultValue"){
+            //Do Nothing
+           }else{
+            var tempFlg = true;
+            $.each(toDos, function(index, toDo){
+            if(toDo.uuid==uuidTmp){
+              tempFlg = false;
+            }
+            });
+            if(tempFlg){
+              $("#completeGroundUl").children(".ui-widget-content").eq(i).hide("slow");                
+            }
+           }
+                        
+           i++;
+          });
+
+
+
 
             i = 0;
             $.each(toDos, function(index, toDo){
               var uuid = toDo.uuid;
               var tempFlg = true;
-              var i = 0;
+              i = 0;
 
               $.each($("#toDoGround").children(".ui-widget-content"), function(){
                 var uuidTmp = $("#toDoGround").children(".ui-widget-content").children(".uuid").eq(i).text();
@@ -197,6 +218,34 @@
                 }
                 i++;
               });
+
+             i = 0;
+             $.each($("#completeGroundUl").children(".ui-widget-content"), function(){
+              var uuidTmp = $("#completeGroundUl").children(".ui-widget-content").children(".uuid").eq(i).text();
+              if(uuid==uuidTmp){
+                $("#completeGroundUl").children(".ui-widget-content").children('.uuid').eq(i).text(toDo.uuid);
+                if(userName == toDo.sender){
+                 $("#completeGroundUl").children(".ui-widget-content").children('.jellyOrFish').eq(i).text("(Fish)");
+                 $("#completeGroundUl").children(".ui-widget-content").children('.todoImage').eq(i).attr('src', 'image/fish.png');
+                 $("#completeGroundUl").children(".ui-widget-content").children('.ui-widget-header').eq(i).text(toDo.receiver); 
+                }else{
+                 $("#completeGroundUl").children(".ui-widget-content").children('.jellyOrFish').eq(i).text("(Jelly)");
+                 $("#completeGroundUl").children(".ui-widget-content").children('.todoImage').eq(i).attr('src', 'image/jelly.png');
+                 $("#completeGroundUl").children(".ui-widget-content").children('.ui-widget-header').eq(i).text(toDo.sender); 
+                }
+               if(toDo.statusReceiver=="O" || toDo.statusSender=="O"){
+                $("#completeGroundUl").children(".ui-widget-content").eq(i).css("background-color","Salmon");
+               }
+               if(toDo.statusReceiver!="O" && toDo.statusSender!="O"){
+                $("#completeGroundUl").children(".ui-widget-content").eq(i).css("background-color","white");
+               }
+                $("#completeGroundUl").children(".ui-widget-content").children('.statusReceiver').eq(i).text(toDo.statusReceiver);
+                $("#completeGroundUl").children(".ui-widget-content").children('.statusSender').eq(i).text(toDo.statusSender);
+                $("#completeGroundUl").children(".ui-widget-content").children('.contents').eq(i).text(toDo.contents);
+                tempFlg = false;
+              }
+              i++;
+            });
               
               if(tempFlg){
                 $cloneToDo = $("#toDo").clone();
@@ -216,21 +265,24 @@
                 $cloneToDo.children('.statusReceiver').text(toDo.statusReceiver);
                 $cloneToDo.children('.statusSender').text(toDo.statusSender);
                 if(toDo.statusReceiver=="O" || toDo.statusSender=="O"){
-                   $cloneToDo.css("background-color","Salmon");
+                   $cloneToDo.css("background-color","Salmon");                   
+                   //$cloneToDo.css({position: 'absolute'});
+                   $cloneToDo.appendTo( $("#completeGroundUl") );
+                }else{
+                 //$cloneToDo.css({position: 'absolute'});
+                 $cloneToDo.appendTo( $("#toDoGround") ); 
                 }
-                //$cloneToDo.appendTo( $("#toDoGround") );
-                $cloneToDo.appendTo( $("#completeGroundUl") );
               }
             });
 
-            //$( "li", $toDoGround ).draggable({containment: "document"});
+            $( "li").resizable();
             $( "li").draggable({containment: "document"});
 
-            $('.li').each(function() {
+            /*$('.li').each(function() {
                 var top = $(this).position().top + 'px';
                 var left = $(this).position().left + 'px';
                 $(this).css({top: top, left: left});
-            }).css({position: 'absolute'});
+            }).css({position: 'absolute'});*/
             
             $(".modClick").click(function() {
              var srcUuid = $(this).parent().children('.uuid').text();
@@ -242,6 +294,9 @@
              $( "#dialog" ).dialog( "open");
              $( "#dialog" ).children('.modContents').focus();
             });
+
+            
+            
         },
 
         fail:function(receive){
