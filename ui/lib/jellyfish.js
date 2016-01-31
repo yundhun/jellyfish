@@ -165,6 +165,11 @@
 
            i = 0;
            $.each($("#completeGroundUl").children(".ui-widget-content"), function(){
+              $('.li').each(function() {
+                var top = $(this).position().top + 'px';
+                var left = $(this).position().left + 'px';
+                $(this).css({top: top, left: left});
+              }).css({position: 'absolute'});
            var uuidTmp = $("#completeGroundUl").children(".ui-widget-content").children(".uuid").eq(i).text();
            if(uuidTmp=="uuidDefaultValue"){
             //Do Nothing
@@ -275,7 +280,7 @@
               }
             });
 
-            $( "li").resizable();
+            //$( "li").resizable();
             $( "li").draggable({containment: "document"});
 
             /*$('.li').each(function() {
@@ -283,6 +288,14 @@
                 var left = $(this).position().left + 'px';
                 $(this).css({top: top, left: left});
             }).css({position: 'absolute'});*/
+
+            $.each($("#toDoGround").children(".ui-widget-content"), function(){
+             /*var top = $("#toDoGround").children(".ui-widget-content").eq(i).position().top + 'px';
+             var left = $("#toDoGround").children(".ui-widget-content").eq(i).position().left + 'px';
+             $("#toDoGround").children(".ui-widget-content").eq(i).css({top: top, left: left});*/
+             //$("#toDoGround").children(".ui-widget-content").eq(i).css({position: "absolute"});  
+             i++;
+            });
             
             $(".modClick").click(function() {
              var srcUuid = $(this).parent().children('.uuid').text();
